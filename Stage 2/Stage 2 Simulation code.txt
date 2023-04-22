@@ -1,0 +1,69 @@
+Code by Mahaveer
+
+
+
+#include<Servo.h>
+int enA=6;
+int in1=4;
+int in2=7;
+int enB=9;
+int in3=8;
+int in4=13;
+
+
+//servo ldr parrt  
+int lightval;
+int lightval2;
+int lightpin=A0;
+int lightpin2=A1;
+int tm=100;
+int servopin=10;
+Servo mahavservo;
+int angle;
+int motorspeed;
+
+void setup() {
+  pinMode(enA, OUTPUT);
+  // motor control pins given to outputs
+	pinMode(enB, OUTPUT);
+	pinMode(in1, OUTPUT);
+	pinMode(in2, OUTPUT);
+	pinMode(in3, OUTPUT);
+	pinMode(in4, OUTPUT);
+  // motor at rest initi
+
+  
+  
+  Serial.begin(9600); //for servo monitor control
+ 
+  pinMode(lightpin,INPUT);
+  pinMode(lightpin2,INPUT);
+ mahavservo.attach(servopin);
+ pinMode(servopin,OUTPUT);
+ mahavservo.write(90);
+  delay(2000);
+}
+
+void loop() {
+  lightval=analogRead(lightpin);
+  lightval2=analogRead(lightpin2);
+  Serial.println(lightval);
+  delay(tm);
+  
+  angle= map(lightval-lightval2, 0, 1023, 90, 180);
+  mahavservo.write(angle);
+  Serial.println("anlge is");
+  Serial.println(angle);
+  
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+  motorspeed=map(lightval-lightval2,0,1023,0,255);
+  analogWrite(enA,motorspeed);
+  analogWrite(enB,motorspeed);
+  delay(100);
+  
+
+
+}
