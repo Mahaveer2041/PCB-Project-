@@ -1,0 +1,21 @@
+void setup()
+{
+DDRB=64
+DDRD=2
+DDRD=16
+DDRD=128
+DDRB=1
+DDRB=64  
+Serial.begin(9600); 
+
+}
+
+
+void loop()
+{
+PORTB=
+
+
+
+
+
