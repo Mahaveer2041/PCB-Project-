@@ -1,0 +1,51 @@
+void setup(){
+DDRD|=B01000000
+DDRD|=B00000010
+DDRD|=B00000100
+DDRB|=B00000010
+DDRD|=000001000
+DDRB|=B00100000
+DDRC&=!B00000001
+DDRC&=!B00000010
+DDRB|=B00000100
+Serial.begin(9600);
+mahavservo.attach(servopin);
+mahavservo.write(90);
+  delay(2000);
+}
+
+void loop(){
+lightval=analogRead(lightpin);
+  lightval2=analogRead(lightpin2);
+  Serial.println(lightval);
+  delay(tm);
+  
+  angle= map(lightval-lightval2, 0, 1023, 90, 180);
+  mahavservo.write(angle);
+  Serial.println("anlge is");
+  Serial.println(angle);
+  
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+  
+  
+  if(lightval==lightval2){
+    motorspeed=map(lightval,0,1023,255,0);
+    analogWrite(enA,motorspeed);
+    analogWrite(enB,motorspeed);
+  }
+  else{
+    motorspeed=map(lightval-lightval2,0,1023,0,255);
+    analogWrite(enA,motorspeed);
+    analogWrite(enB,motorspeed);
+  }
+      
+  
+  
+  delay(100);
+  
+
+
+}
